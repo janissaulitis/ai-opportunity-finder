@@ -62,7 +62,8 @@ def pdf_plan(company, industry, top, assumptions) -> bytes:
     return buf.getvalue()
 
 
-left, right = st.columns([5, 7], gap="large")
+layout = st.container(key="answer_first")  # on phones the answer column moves above the questions
+left, right = layout.columns([5, 7], gap="large")
 
 with left:
     st.markdown("#### Your company")
@@ -92,10 +93,13 @@ with right:
         best = top[0]
         hours3 = sum(r["hours"] for r in top[:3])
         value3 = sum(r["net"] for r in top[:3])
-        st.markdown(f"#### Start with: {best['name'].lower()}")
-        st.markdown(f"It pays back in **{months(best['payback_months'])}**. Together, your top three are worth about "
-                    f"**€{value3:,.0f} a month** after running costs"
-                    + (f", including **{hours3:,.0f} hours** of staff time freed." if hours3 >= 1 else "."))
+        kit.answer("Start with", best["name"],
+                   f"It pays back in <b>{months(best['payback_months'])}</b>. Together, your top three are worth about "
+                   f"<b>€{value3:,.0f} a month</b> after running costs"
+                   + (f", including <b>{hours3:,.0f} hours</b> of staff time freed." if hours3 >= 1 else "."),
+                   [("Top 3, € a month", f"€{value3:,.0f}"), ("Hours freed", f"{hours3:,.0f} h"),
+                    ("First one pays back", months(best["payback_months"]))])
+        st.markdown("#### Your top five")
         for i, r in enumerate(top, 1):
             with st.container(border=True):
                 a, b = st.columns([3, 1])
