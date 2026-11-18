@@ -12,10 +12,10 @@ import kit
 F = importlib.reload(F)  # Streamlit Cloud keeps old copies of imported files after an update; always use the latest
 kit = importlib.reload(kit)
 
-kit.page("Where AI Pays", "Find the AI projects that pay back first in your company", mark="🧭",
+kit.page("Where AI Pays", "Find the AI projects that pay back first in your company", mark="compass", icon="🧭",
          meta="For owners and managers · nothing you type is stored", badge="Free · no sign-up")
 
-RISK = {"low": "🟢 low risk", "medium": "🟠 medium risk", "high": "🔴 high risk"}
+RISK = {"low": ("good", "low risk"), "medium": ("warn", "medium risk"), "high": ("bad", "high risk")}
 
 
 def months(x):
@@ -65,7 +65,7 @@ def pdf_plan(company, industry, top, assumptions) -> bytes:
 layout = st.container(key="answer_first")  # on phones the answer column moves above the questions
 left, right = layout.columns([5, 7], gap="large")
 
-with left:
+with left.container(border=True):
     st.markdown("#### Your company")
     company = st.text_input("Company name (optional, for the PDF)", placeholder="e.g. Baltic Freight")
     industry = st.selectbox("Industry", list(F.INDUSTRIES), format_func=F.INDUSTRIES.get, index=0)
@@ -104,7 +104,7 @@ with right:
             with st.container(border=True):
                 a, b = st.columns([3, 1])
                 a.markdown(f"**{i}. {r['name']}**")
-                b.markdown(f"<div style='text-align:right'>{RISK[r['risk']]}</div>", unsafe_allow_html=True)
+                b.markdown(f"<div style='text-align:right'><span class='k-chip {RISK[r['risk']][0]}'>{RISK[r['risk']][1]}</span></div>", unsafe_allow_html=True)
                 gain = (f"Saves **{r['hours']:,.0f} h** a month" if r["hours"] >= 1
                         else f"Prevents about **€{r['monthly_value']:,.0f}** of losses a month")
                 st.markdown(f"{gain} · **€{r['net']:,.0f}** a month after costs · "
@@ -125,9 +125,10 @@ with right:
                            file_name="ai-plan.pdf", mime="application/pdf", type="primary")
         if len(res) > 5:
             with st.expander(f"The other {len(res) - 5} options"):
-                st.dataframe(pd.DataFrame([{"Use case": r["name"], "Hours a month": round(r["hours"]),
-                                            "€ a month after costs": round(r["net"]),
-                                            "Payback": months(r["payback_months"])} for r in res[5:]]),
-                             hide_index=True, width="stretch")
+                kit.table([{"u": r["name"], "h": f"{r['hours']:,.0f} h", "v": f"€{r['net']:,.0f}", "p": months(r["payback_months"]),
+                            "r": r["risk"]} for r in res[5:]],
+                          [kit.col("Use case", "u", "strong"), kit.col("Hours a month", "h", "num"),
+                           kit.col("€ a month after costs", "v", "num"), kit.col("Pays back in", "p", "muted"),
+                           kit.col("Risk", "r", "chip", {"low": "good", "medium": "warn", "high": "bad"})])
 
 kit.footer("finder.py · every estimate shows its maths")
