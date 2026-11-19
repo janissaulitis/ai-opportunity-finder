@@ -1,13 +1,19 @@
+[theme]
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap, sans-serif"
+headingFont = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap, sans-serif"
+baseFontWeight = 500
+baseRadius = "0.75rem"
+buttonRadius = "0.75rem"
+showWidgetBorder = true
+
 [theme.light]
-primaryColor = "#127a5b"
-backgroundColor = "#f5f6f8"
-secondaryBackgroundColor = "#ffffff"
-textColor = "#101828"
-codeTextColor = "#8a5a00"
+primaryColor = "#1257E6"
+backgroundColor = "#F7F9FC"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#0A1A33"
 
 [theme.dark]
-primaryColor = "#3dd39b"
-backgroundColor = "#0f1720"
-secondaryBackgroundColor = "#16212c"
-textColor = "#e6edf3"
-codeTextColor = "#f5b83d"
+primaryColor = "#1C6CFF"
+backgroundColor = "#000814"
+secondaryBackgroundColor = "#071A33"
+textColor = "#EAF0FA"

@@ -1,4 +1,5 @@
 """Where AI Pays: a company's top AI use cases from a few answers. Run: streamlit run app.py"""
+import html
 import importlib
 import io
 from datetime import date
@@ -13,7 +14,7 @@ F = importlib.reload(F)  # Streamlit Cloud keeps old copies of imported files af
 kit = importlib.reload(kit)
 
 kit.page("Where AI Pays", "Find the AI projects that pay back first in your company", mark="compass", icon="🧭",
-         meta="For owners and managers · nothing you type is stored", badge="Free · no sign-up")
+         meta="For owners and managers · nothing you type is stored", badge="Free · no sign-up", theme="space")
 
 RISK = {"low": ("good", "low risk"), "medium": ("warn", "medium risk"), "high": ("bad", "high risk")}
 
@@ -93,17 +94,16 @@ with right:
         best = top[0]
         hours3 = sum(r["hours"] for r in top[:3])
         value3 = sum(r["net"] for r in top[:3])
-        kit.answer("Start with", best["name"],
-                   f"It pays back in <b>{months(best['payback_months'])}</b>. Together, your top three are worth about "
-                   f"<b>€{value3:,.0f} a month</b> after running costs"
-                   + (f", including <b>{hours3:,.0f} hours</b> of staff time freed." if hours3 >= 1 else "."),
-                   [("Top 3, € a month", f"€{value3:,.0f}"), ("Hours freed", f"{hours3:,.0f} h"),
-                    ("First one pays back", months(best["payback_months"]))])
+        kit.answer("Where AI pays · your top three", f"€{value3:,.0f}<small> a month</small>",
+                   "after running costs" + (f", plus <b>{hours3:,.0f} hours</b> of staff time freed" if hours3 >= 1 else "")
+                   + f". Start with {html.escape(best['name'].lower())}: it pays back first, in {months(best['payback_months'])}.",
+                   raw=True)
         st.markdown("#### Your top five")
         for i, r in enumerate(top, 1):
             with st.container(border=True):
                 a, b = st.columns([3, 1])
-                a.markdown(f"**{i}. {r['name']}**")
+                a.markdown(f"<span class='k-rank'>{i}</span>&nbsp;&nbsp;<b style='font-size:16.5px'>{html.escape(r['name'])}</b>",
+                           unsafe_allow_html=True)
                 b.markdown(f"<div style='text-align:right'><span class='k-chip {RISK[r['risk']][0]}'>{RISK[r['risk']][1]}</span></div>", unsafe_allow_html=True)
                 gain = (f"Saves **{r['hours']:,.0f} h** a month" if r["hours"] >= 1
                         else f"Prevents about **€{r['monthly_value']:,.0f}** of losses a month")
