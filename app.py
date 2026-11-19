@@ -1,3 +1,4 @@
+import os
 """Where AI Pays: a company's top AI use cases from a few answers. Run: streamlit run app.py"""
 import html
 import importlib
@@ -15,6 +16,9 @@ kit = importlib.reload(kit)
 
 kit.page("Where AI Pays", "Find the AI projects that pay back first in your company", mark="compass", icon="🧭",
          meta="For owners and managers · nothing you type is stored", badge="Free · no sign-up", theme="space")
+
+kit.demo(os.environ.get("DEMO_VIDEO", "https://janis-saulitis-portfolio.netlify.app/media/finder.mp4"), "Where AI Pays in 1 minute",
+         "1. Pick your **industry** and what takes your team the most time.\n2. Roughly how much of it there is: emails, documents, invoices, customers.\n3. Read the top ideas: what each saves after running costs, when it pays back, and the risk.\n4. Open one for the first steps and the maths, or **download the one-page plan**.")
 
 RISK = {"low": ("good", "low risk"), "medium": ("warn", "medium risk"), "high": ("bad", "high risk")}
 
