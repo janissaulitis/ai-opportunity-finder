@@ -26,7 +26,7 @@ with sync_playwright() as p:
                 print(f"{url}: awake")
             # the app itself runs inside an iframe; wait until something has rendered there
             frame = page.frame_locator("iframe[title='streamlitApp']")
-            frame.locator(".k-name, h1").first.wait_for(timeout=120_000)
+            frame.locator(".k-name, h1").first.wait_for(state="attached", timeout=120_000)
             print(f"{url}: OK, title: {frame.locator('.k-name, h1').first.inner_text()[:60]}")
         except Exception as e:
             failed.append(url)
