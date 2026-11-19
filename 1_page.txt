@@ -1,0 +1,89 @@
+Where AI Pays
+
+Find the AI projects that pay back first in your company
+Free · no sign-up
+For owners and managers · nothing you type is stored
+
+▶ 1-min demo
+
+How it works
+
+expand_more
+Your company
+
+Company name (optional, for the PDF)
+
+Industry
+
+What takes your team the most time?
+
+Answering customer emails and messages
+Checking documents (IDs, statements, contracts)
+Typing in invoices and receipts
+Customers paying late
+
+Roughly how much?
+
+Customer emails a month
+
+Documents checked a month
+
+Invoices and receipts a month
+
+Active customers or loans
+
+keyboard_arrow_right
+
+Costs and assumptions
+
+WHERE AI PAYS · YOUR TOP THREE
+
+€695 a month
+
+after running costs, plus 24 hours of staff time freed. Start with predict which customers will pay late: it pays back first, in 12 months.
+Your top five
+
+1  Predict which customers will pay late
+
+medium risk
+
+Prevents about €420 of losses a month · €400 a month after costs · pays back in 12 months
+
+keyboard_arrow_right
+
+What it does and how to start
+
+2  Read invoices and receipts automatically
+
+low risk
+
+Saves 12 h a month · €155 a month after costs · pays back in 13 months
+
+keyboard_arrow_right
+
+What it does and how to start
+
+3  Sort and draft replies to customer emails
+
+high risk
+
+Saves 12 h a month · €140 a month after costs · pays back in 21 months
+
+keyboard_arrow_right
+
+What it does and how to start
+
+4  Check documents against applications
+
+high risk
+
+Saves 14 h a month · €172 a month after costs · pays back in 23 months
+
+keyboard_arrow_right
+
+What it does and how to start
+
+Download the one-page plan (PDF)
+
+Built by Jānis Saulītis with AI · finder.py · every estimate shows its maths
+See more tools
